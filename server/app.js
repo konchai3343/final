@@ -23,8 +23,8 @@ var httpsServer = https.createServer(credentials, app);
 //app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
 const db = mysql.createConnection({
-    host: '172.25.240.1',
-    user: 'bonn',
+    host: '172.30.208.1',
+    user: 'bom',
     password: '1234',
     database: 'testing'
 });
@@ -57,14 +57,17 @@ app.put('/data', function(req, res) {
         res.send(JSON.stringify(results));
     });
 });
-
+let date = new Date();
+now = date.toLocaleString()
 //insert
 app.post('/data', function(req, res){
     console.log(req.body);
     let data = {
         id:req.body.idkey,
         firstname:req.body.firstname,
-        lastname:req.body.lastname
+        lastname:req.body.lastname,
+        email:req.body.email,
+        date:now
     };
     let sql = 'INSERT INTO users SET ?';
     db.query(sql, data, (err, result)=>{
